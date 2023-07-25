@@ -4,11 +4,15 @@ const userRoutes = require('../routes/userRoute');
 const express = require('express');
 const path = require('path');
 const bodyParser =require('body-parser')
+const controller = require('../controller/userController');
+const userAuth = require('../middleware/userAuth');
+const checkPermission = require('../middleware/checkPermission');
 
 app.use(express.static(path.join(__dirname,'public')));
 app.use('/public',express.static('./public'));
 app.use(express.json());
 app.use(express.urlencoded({extended : false}));
+
 
 app.use('/vidly/movies',movieRoutes);
 app.use('/vidly/users',userRoutes);
@@ -21,5 +25,3 @@ app.use(async(err,req,res,next) => {
         // process.exit(1);
     }
 });
-
-

@@ -20,10 +20,21 @@ exports.createMovie = async (req,res,next) => {
         // res.send(result)
         let data = req.body;
         let result = await service.insertMovie(req,data);
-        console.log(result.dataValues);
+        // console.log(result.dataValues);
         res.send(result)
     } catch (error) {
         console.log('Movie error : ',error);
         next(error);
     }
+}
+
+exports.upDateMovie = async(req,res,next) => {
+  try {
+    let data = req.body;
+    let result = await service.upDateMovie(req,data);
+    res.status(200).send('success')
+  } catch (error) {
+    console.log('UpDate Movie error : ',error);
+    next(error);
+  }
 }

@@ -1,0 +1,2 @@
+hello,this is example, file to read.Happy coding!
+Read and Write a file using fs.
