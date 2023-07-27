@@ -8,7 +8,7 @@ const {movieValidation} = require('../utils/validation/movieValidation');
 const {validationResult} = require('../utils/validation/validationResult');
 
 router.get('/',controller.getMovies);
-router.post('/newMovie',authUser,checkPermission,upload,controller.createMovie);
-router.put('/updateMovie',authUser,checkPermission,upload,movieValidation,validationResult,controller.upDateMovie);
+router.post('/',authUser,checkPermission,upload,controller.createMovie);
+router.put('/:id',authUser,checkPermission,upload,movieValidation,validationResult,controller.upDateMovie);
 
 module.exports = router;

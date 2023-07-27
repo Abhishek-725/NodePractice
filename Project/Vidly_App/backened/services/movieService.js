@@ -24,8 +24,10 @@ async function insertMovie(req, data) {
 async function upDateMovie(req, data) {
   console.log(req.file);
   let image = convertImageToUrl(req.file.path);
-  console.log(image);
-  let { movieId , movieName, movie_type , barCode, stock, rating, rate } = data;
+  // console.log(image);
+  let movieId = req.params.id;
+  console.log(movieId);
+  let { movieName, movie_type , barCode, stock, rating, rate } = data;
   // let result = await Movies.update({
   //   movieName,
   //   movie_type,

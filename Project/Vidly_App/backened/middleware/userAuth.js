@@ -5,7 +5,7 @@ module.exports = async(req,res,next) => {
     let bearer = req.headers.bearer;
     jwt.verify(bearer,process.env.JWT_SECRET,(err,verify)=>{
         if (err) {
-            res.status(401).send(err.message);
+            res.status(401).json({error : err.message,message :'Token Experied'});
         }else{
             if (verify) {
                 let {id , email , role } =  verify.data;

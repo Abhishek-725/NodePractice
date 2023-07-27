@@ -7,10 +7,10 @@ const checkPermission = require('../middleware/checkPermission');
 
 router.post('/login',controller.login);
 
-router.post('/customers/newCustomer',upload,controller.createNewUser);
+router.post('/',upload,controller.createNewUser);
 
-router.get('/customers',authUser,controller.viewUsers);
+router.get('/',authUser,controller.viewUsers);
 
-router.post('/customers/customer',authUser,checkPermission,controller.customer);
+router.get('/phone',authUser,checkPermission,controller.customer);
 
 module.exports = router;

@@ -1,0 +1,1 @@
+exports.BaseUrl = 'http://localhost:3000/vidly';
