@@ -17,3 +17,8 @@ dbConnection.authenticate()
     });
 
 module.exports = dbConnection;
+
+
+dbConnection.sync({alter : true})
+    .then(() => console.log("DataBase sync successfully"))
+    .catch((err) => console.log("DataBase sync error ",err));

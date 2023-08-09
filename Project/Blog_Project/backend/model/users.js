@@ -1,5 +1,6 @@
 const sequelize = require('./index');
 const {Model, DataTypes} = require('sequelize');
+const Roles = require('./role');
 
 
 class User extends Model{
@@ -37,9 +38,14 @@ User.init({
     role : {
         type : DataTypes.INTEGER,
         references : {
-            key : id,
-            model : role
+            key : 'roleId',
+            model : Roles
         }
     }
-})
+},{
+    modelName : 'users',
+    sequelize
+});
+
+module.exports = User;
 
