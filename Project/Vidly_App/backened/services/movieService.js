@@ -2,7 +2,8 @@ const convertImageToUrl = require("../utils/convertImageUrl");
 const Movies = require("../model/movies");
 module.exports = {
   insertMovie,
-  upDateMovie
+  upDateMovie,
+  getAllMovie
 };
 
 async function insertMovie(req, data) {
@@ -20,6 +21,13 @@ async function insertMovie(req, data) {
   return result;
 };
 
+// Get all movie from database 
+async function getAllMovie(){
+  let result = await Movies.findAll({
+    attributes: { exclude: ["createdAt", "updatedAt"] },
+  });
+  return result ? result : 'Data not available.';
+}
 
 async function upDateMovie(req, data) {
   console.log(req.file);

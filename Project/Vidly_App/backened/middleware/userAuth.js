@@ -3,7 +3,7 @@ const Users = require('../model/users');
 
 module.exports = async(req,res,next) => {
     let bearer = req.headers.bearer;
-    jwt.verify(bearer,process.env.JWT_SECRET,(err,verify)=>{
+     jwt.verify(bearer,process.env.JWT_SECRET,(err,verify)=>{
         if (err) {
             res.status(401).json({error : err.message,message :'Token Experied'});
         }else{

@@ -13,6 +13,9 @@ Permission.init({
         autoIncrement:true,
         primaryKey : true
     },
+    action : {
+        type : DataTypes.STRING,
+    },
     role_id : {
         type : DataTypes.INTEGER  
     },

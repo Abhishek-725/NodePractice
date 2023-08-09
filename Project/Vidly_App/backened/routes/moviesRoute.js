@@ -6,9 +6,15 @@ const authUser = require('../middleware/userAuth');
 const checkPermission = require('../middleware/checkPermission');
 const {movieValidation} = require('../utils/validation/movieValidation');
 const {validationResult} = require('../utils/validation/validationResult');
+const errorWrapper = require('../utils/errorWrapper');
 
-router.get('/',controller.getMovies);
-router.post('/',authUser,checkPermission,upload,controller.createMovie);
-router.put('/:id',authUser,checkPermission,upload,movieValidation,validationResult,controller.upDateMovie);
+//get all movies
+router.get('/',errorWrapper(controller.getMovies));
+
+//insert new movies
+router.post('/',authUser,checkPermission,upload,errorWrapper(controller.createMovie));
+
+//update movie by id
+router.put('/:id',authUser,checkPermission,upload,movieValidation,validationResult,errorWrapper(controller.upDateMovie));
 
 module.exports = router;

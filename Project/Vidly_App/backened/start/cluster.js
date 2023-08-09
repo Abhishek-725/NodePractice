@@ -2,7 +2,7 @@ const app = require('../app');
 const express = require('express');
 const cluster = require('cluster');
 const os = require('os');
-const sequelize = require('../dataBase/connection');
+
 
 let numCPUS = os.cpus().length - 2;
 let Port = process.env.SERVER_PORT || 3001;
@@ -26,17 +26,3 @@ try {
 } catch (error) {
     console.log('Cluster Error : ',error);
 }
-
-
-// if (cluster.isMaster) {
-// //   console.log(`Worker process ${process.pid} started`);
-//   // Sync the models with the database
-//   sequelize
-//     .sync({ alter: true })
-//     .then(() => {
-//       console.log("Database sync successful");
-//     })
-//     .catch((error) => {
-//       console.error("Database sync failed", error);
-//     });
-// }

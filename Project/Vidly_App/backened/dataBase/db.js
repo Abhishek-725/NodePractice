@@ -1,7 +1,6 @@
-const db = require('../model/index');
 const sequelize = require('./connection');
 const cluster = require('cluster');
-
+const db = require('../model/index');
 
 if (cluster.isMaster) {
     //   console.log(`Worker process ${process.pid} started`);

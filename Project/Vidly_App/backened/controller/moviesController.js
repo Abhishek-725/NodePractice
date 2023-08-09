@@ -1,40 +1,22 @@
 const Movies = require('../model/movies');
 const service = require('../services/movieService');
 
-exports.getMovies = async(req,res,next) => {
-    try {
-        console.log('Request :',req.url,req.method,req.originalUrl);
-        let result  = await Movies.findAll({attributes : {exclude :['createdAt','updatedAt']}});
-        res.send(result);
-    } catch (error) {
-        console.log('Movie error : ',error);
-        next(error);
-    }
-}
+// Get all movies
+exports.getMovies = async (req, res, next) => {
+  let result = await service.getAllMovie(); //get movie function
+  res.status(200).json({data : result});
+};
 
+// Insert Movie
 exports.createMovie = async (req,res,next) => {
-    try {
-        // console.log(result);
-        // let result = await Movies.create(data);
-        // console.log(result.dataValues);
-        // res.send(result)
-        let data = req.body;
-        let result = await service.insertMovie(req,data);
-        // console.log(result.dataValues);
-        res.send(result)
-    } catch (error) {
-        console.log('Movie error : ',error);
-        next(error);
-    }
+  let data = req.body;
+  let result = await service.insertMovie(req,data); //insert movie function
+  res.send(result)
 }
 
+// Update Movie
 exports.upDateMovie = async(req,res,next) => {
-  try {
-    let data = req.body;
-    let result = await service.upDateMovie(req,data);
-    res.status(200).send('success')
-  } catch (error) {
-    console.log('UpDate Movie error : ',error);
-    next(error);
-  }
+  let data = req.body;
+  let result = await service.upDateMovie(req,data); //Update movie function
+  res.status(200).send('success')
 }

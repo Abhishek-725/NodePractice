@@ -3,7 +3,6 @@ const bcrypt = require("bcrypt");
 const User = require("../model/users");
 const convertToUrl = require("../utils/convertImageUrl");
 const hashPassword = require("../utils/hashPassword");
-const path = require("path");
 const Users = require("../model/users");
 module.exports = {
   insertUser,
@@ -35,7 +34,7 @@ async function checkUser(data) {
   let { id, role } = user.dataValues;
   if (user) {
     let match = await bcrypt.compare(password, user.password);
-    return (match) ? { id, role, email }: false;
+    return match ? { id, role, email } : false;
   } else {
     return false;
   }
@@ -44,7 +43,10 @@ async function checkUser(data) {
 async function viewUserByPhone(number) {
   if (NUMBER(number)) {
     if (number.length === 10) {
-      let user = await User.findOne({ where: { phone: number } });
+      let user = await User.findOne({
+        attributes: { exclude: ["password", "token", "role"] },
+        where: { phone: number },
+      });
       return user;
     } else {
       throw new Error("Number must contain 10 digit..");

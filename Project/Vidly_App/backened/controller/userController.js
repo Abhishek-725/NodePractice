@@ -45,13 +45,8 @@ exports.viewUsers = async(req,res,next) => {
 }
 
 exports.customer = async(req,res,next) => {
-    try {
         let {phone} = req.body;
         let result = await service.viewUserByPhone(phone);
         console.log(result);
-        res.send(result);
-    } catch (error) {
-        next(error);
-        console.log('user error',error);
-    }
+        res.status(200).json({data : result});
 } 
