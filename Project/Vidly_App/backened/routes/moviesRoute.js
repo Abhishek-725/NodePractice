@@ -8,13 +8,10 @@ const {movieValidation} = require('../utils/validation/movieValidation');
 const {validationResult} = require('../utils/validation/validationResult');
 const errorWrapper = require('../utils/errorWrapper');
 
-//get all movies
-router.get('/',errorWrapper(controller.getMovies));
+router.get('/',errorWrapper(controller.getMovies));//get all movies
 
-//insert new movies
-router.post('/',authUser,checkPermission,upload,errorWrapper(controller.createMovie));
+router.post('/',authUser,checkPermission,upload,errorWrapper(controller.createMovie));//insert new movies
 
-//update movie by id
-router.put('/:id',authUser,checkPermission,upload,movieValidation,validationResult,errorWrapper(controller.upDateMovie));
+router.put('/:id',authUser,checkPermission,upload,errorWrapper(controller.upDateMovie));//update movie by id
 
 module.exports = router;

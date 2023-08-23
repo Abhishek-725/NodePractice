@@ -4,6 +4,7 @@ const User = require("../model/users");
 const convertToUrl = require("../utils/convertImageUrl");
 const hashPassword = require("../utils/hashPassword");
 const Users = require("../model/users");
+const db = require('../dataBase/pg_promise');
 module.exports = {
   insertUser,
   viewUserByPhone,
@@ -17,15 +18,17 @@ async function insertUser(req, data) {
   // Hashing password
   password = await hashPassword(password);
 
-  let result = await User.create({
-    firstName,
-    lastName,
-    email,
-    password,
-    phone,
-    profileImage: image,
-  });
-  return result;
+  // let result = await User.create({
+  //   firstName,
+  //   lastName,
+  //   email,
+  //   password,
+  //   phone,
+  //   profileImage: image,
+  // });
+
+  await db.proc('insert_users',[firstName, lastName, email, password, phone,image])
+  return "Account created successfully";
 }
 
 async function checkUser(data) {
@@ -43,11 +46,16 @@ async function checkUser(data) {
 async function viewUserByPhone(number) {
   if (NUMBER(number)) {
     if (number.length === 10) {
-      let user = await User.findOne({
-        attributes: { exclude: ["password", "token", "role"] },
-        where: { phone: number },
-      });
-      return user;
+      // let user = await User.findOne({
+      //   attributes: { exclude: ["password", "token", "role"] },
+      //   where: { phone: number },
+      // });
+      // return user;
+      let result = await db.query(
+        'select id,"firstName","lastName",email,phone,"profileImage"  from users where phone = $1',
+        number
+      );
+      return result;
     } else {
       throw new Error("Number must contain 10 digit..");
     }

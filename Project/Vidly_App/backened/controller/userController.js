@@ -3,14 +3,9 @@ const service = require('../services/userService');
 const generateToken = require('../utils/generateToken');
 
 exports.createNewUser = async(req,res,next) => {
-    try {
         let result = await service.insertUser(req,req.body);
         console.log(result);
         res.send(result)
-    } catch (error) {
-        next(error);
-        console.log('user error',error);
-    }
 }
 
 exports.login = async(req,res,next) => {

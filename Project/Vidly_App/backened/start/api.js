@@ -1,4 +1,7 @@
 const app = require('../app');
+const helmet = require('helmet');
+
+app.use(helmet());
 const morgan = require('morgan');
 if (app.get('env') === 'development') {
     app.use(morgan('tiny'));
