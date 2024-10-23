@@ -28,10 +28,10 @@ const Course = new mongoose.model("course", excersie_schema);
 
 async function getData() {
   return await Course.find({
-    $and: [
-      { isPublished: false },
-      { $or: [{ tags: "frontend" }, { tags: "backend" }] },
-    ],
+    // $and: [
+    //   { isPublished: false },
+    //   { $or: [{ tags: "frontend" }, { tags: "backend" }] },
+    // ],
   })
     .sort("-price")
     .select({ name: 1, author: 1, price: 1 });
@@ -40,7 +40,22 @@ async function run() {
   const result = await getData();
   console.log(result);
 }
-//run();
+run();
+
+// creating data
+async function create(){
+  const data = await Course.create({
+  _id : '00003',
+  name: 'Name3',
+  author: 'Author3',
+  tags: ['fackend','frontend'],
+  isPublished: true,
+  price: 20,
+  });
+  // await data.save();
+  console.log(data);
+}
+// create();
 
 //Update First Method
 async function updateFirst(id) {
@@ -85,4 +100,4 @@ async function removeCourse(id) {
     console.log(course);
     //console.log(result);
   }
-  removeCourse("5a68fdf95db93f6477053ddd");
+  // removeCourse("5a68fdf95db93f6477053ddd");
