@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema({
         type : String,
         required : true,
         validate : {
-            validator (value) {
+            validator (value : string) {
                 return value.length >= 2 && value.length <= 30
             },
             message : 'Last name must contain 2 to 30 characters.',
@@ -21,11 +21,11 @@ const UserSchema = new mongoose.Schema({
         required : true,
         unique : true,
         validate :{
-            validator (value) {
+            validator (value : string) {
                 const emailRegex = /^\S+@\S+\.\S+$/;
                 return emailRegex.test(value);
             },
-            message: props => `${props.value} is invalid email.`
+            message: (props:{ value: string }) => `${props.value} is invalid email.`
         }
     },
     role: {
@@ -38,11 +38,11 @@ const UserSchema = new mongoose.Schema({
         required : true,
         unique : true,
         validate :{
-            validator (value) {
+            validator (value : string) {
                 const mobileRegex = /^[0-9]{10}$/;
                 return mobileRegex.test(value.toString());
             },
-            message: props => `${props.value} is invalid mobile number.`
+            message: (props:{ value: string }) => `${props.value} is invalid mobile number.`
         }
     },
     password : {
@@ -52,4 +52,4 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model('Users',UserSchema);
 
-module.exports = User;
+export default User;

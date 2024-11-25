@@ -1,4 +1,5 @@
 const { check, validationResult } = require('express-validator');
+import {Request, Response, NextFunction} from 'express';
 
 // Validation rules for user registration
 exports.validateRegisterUser = [
@@ -24,7 +25,7 @@ exports.validateRegisterUser = [
 ];
 
 // Error handling middleware
-exports.handleValidationErrors = (req, res, next) => {
+exports.handleValidationErrors = (req : Request, res : Response, next : NextFunction) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });

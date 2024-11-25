@@ -1,8 +1,12 @@
-const User = require('../model/Users');
-const AppError = require('../utils/AppError');
+import User from '../model/Users';
+import AppError from '../utils/AppError';
+import {Request, Response, NextFunction} from 'express';
 
+interface UserFilter {
+    email?: string;
+}
 
-const craeteUser = async (req) => {
+const craeteUser = async (req :Request ) => {
     const {first_name, last_name, email} = req.body;
     const checkmail = await User.findOne({
         email : email
@@ -19,10 +23,10 @@ const craeteUser = async (req) => {
     return await result.save();
 }
 
-const getUsers = async (email) => {
-    const userFilter = {};
+const getUsers = async (email : string) => {
+    const userFilter : UserFilter  = {};
     if (email) {
-        userFilter['emai'] = email
+        userFilter['email'] = email
     }
     const aggregateQuery = [
         { $match: userFilter },
@@ -34,7 +38,7 @@ const getUsers = async (email) => {
     }
     return result[0];
 }
-module.exports = {
+export default {
     craeteUser,
     getUsers
 }

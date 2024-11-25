@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const cluster = require('cluster');
 
 mongoose.connect('mongodb://0.0.0.0:27017/book_store')

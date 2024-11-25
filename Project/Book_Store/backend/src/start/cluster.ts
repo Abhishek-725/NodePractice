@@ -1,10 +1,10 @@
 const os = require('os');
-const app = require('../app');
+import app from '../app';
 const cluster = require('cluster');
 let cpuNum = os.cpus().length - 5;
 // console.log(cpuNum);
  
-let port = process.env.SERVER_PORT || 5555;
+let port : string | number = process.env.SERVER_PORT || 5555;
 
 
 // if (cluster.isMaster) {

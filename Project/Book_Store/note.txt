@@ -1,3 +1,16 @@
 install package(tpyescript)
+    npm install typescript @types/node --save-dev
+2. Initialize a tsconfig.json File
+    npx tsc --init
+In tsconfig.json, set up the following common options:
+
+"target": "es6" or later for modern JavaScript syntax.
+"module": "commonjs" to match Node's module system.
+"rootDir": "./src" if your source code is in a src folder.
+"outDir": "./dist" for compiled JavaScript files.
+3. Install and Configure Additional Type Definitions
+If your project uses any external libraries, install type definitions for them. For example, if you use express:
+    npm install @types/express --save-dev
+
 Replaec all file with .js with .ts 
-install 
+    mv src/index.js src/index.ts
