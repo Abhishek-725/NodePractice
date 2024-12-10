@@ -31,3 +31,18 @@ let count = 0;
     console.log(count); 
 }
 )();
+
+
+let x = 10; 
+function outerFunction() { 
+ return function innerFunction() { 
+ console.log(x); 
+ }; 
+} 
+const closure = outerFunction(); 
+x = 20; closure();
+
+const obj = { a: 1, b: { c: 2 } }; 
+const copy = Object.assign({}, obj); 
+copy.b.c = 42; 
+console.log(obj.b.c); 

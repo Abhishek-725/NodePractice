@@ -1,4 +1,4 @@
-import User from "../../model/Users";
+import User from "../../model/Users/Users";
 import AppError from "../../utils/AppError";
 import errorWrapper from "../../utils/errorWrapper";
 import {Request, Response, NextFunction} from 'express';

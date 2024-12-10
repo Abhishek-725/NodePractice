@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import User from '../model/Users';
+import User from '../model/Users/Users';
 import ResponseHandler from '../utils/ResponseHandler';
 import errorWrapper from '../utils/errorWrapper';
 import userServices from '../services/userServices';

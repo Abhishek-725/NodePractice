@@ -1,4 +1,4 @@
-import User from '../model/Users';
+import User from '../model/Users/Users';
 import AppError from '../utils/AppError';
 import {Request, Response, NextFunction} from 'express';
 
@@ -7,18 +7,19 @@ interface UserFilter {
 }
 
 const craeteUser = async (req :Request ) => {
-    const {first_name, last_name, email} = req.body;
+    const {first_name, last_name, email, role} = req.body;
     const checkmail = await User.findOne({
         email : email
     });
     if (checkmail) {
-        console.log("User email exists");
+        // console.log("User email exists");
         throw new AppError('E-mail alredy exists.',400);
     }
     const result = await User.create({
         first_name,
         last_name,
         email,
+        role
     });
     return await result.save();
 }

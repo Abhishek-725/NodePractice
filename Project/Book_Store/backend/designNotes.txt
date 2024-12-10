@@ -1,0 +1,13 @@
+tables : 
+
+1. User [mobile, email,role,password,token,is_test_user,block_user,creation_date]
+2. Profile [first_name,last_name,profile_pic,state_id,city_id,district_id]
+3. Book type
+4. Book details
+5. Book content
+6. 
+
+const obj = { a: 1, b: { c: 2 } }; 
+const copy = Object.assign({}, obj); 
+copy.b.c = 42; 
+console.log(obj.b.c); 
