@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Role_1 = __importDefault(require("../model/Role"));
+const profileModel_1 = __importDefault(require("../model/Users/profileModel"));
 const Users_1 = __importDefault(require("../model/Users/Users"));
 const AppError_1 = __importDefault(require("../utils/AppError"));
 const craeteUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
@@ -29,10 +30,20 @@ const craeteUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
         throw new AppError_1.default('Default role not found.', 500);
     const result = yield Users_1.default.create({
         email,
+        mobile,
         role: role || (defaultRole === null || defaultRole === void 0 ? void 0 : defaultRole._id) || null,
         password
     });
-    return yield result.save();
+    const profileData = yield profileModel_1.default.create({
+        user_id: result._id,
+        first_name,
+        last_name,
+        state_id,
+        district_id,
+        city_id
+    });
+    const [user, profile] = yield Promise.all([result.save(), profileData.save()]);
+    return { user, profile };
 });
 const getUsers = (email) => __awaiter(void 0, void 0, void 0, function* () {
     const userFilter = {};

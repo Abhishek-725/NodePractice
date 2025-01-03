@@ -15,5 +15,5 @@ const RoleSchema = new mongoose_1.default.Schema({
         default: 'No description available'
     },
 });
-const Role = mongoose_1.default.model('Role', RoleSchema);
+const Role = mongoose_1.default.model('Roles', RoleSchema);
 exports.default = Role;

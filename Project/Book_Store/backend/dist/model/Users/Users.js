@@ -7,7 +7,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const UserSchema = new mongoose_1.default.Schema({
     mobile: {
         type: Number,
-        // required : true,
+        required: true,
         unique: true,
         validate: {
             validator(value) {
@@ -31,7 +31,7 @@ const UserSchema = new mongoose_1.default.Schema({
     },
     role: {
         type: mongoose_1.default.Schema.Types.ObjectId,
-        ref: 'Role',
+        ref: 'Roles',
         default: '67614fac9b2091aa5e28d663'
     },
     password: {
