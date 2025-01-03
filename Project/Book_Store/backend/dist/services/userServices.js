@@ -12,21 +12,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Users_1 = __importDefault(require("../model/Users"));
+const Role_1 = __importDefault(require("../model/Role"));
+const Users_1 = __importDefault(require("../model/Users/Users"));
 const AppError_1 = __importDefault(require("../utils/AppError"));
 const craeteUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
-    const { first_name, last_name, email } = req.body;
+    const { email, role, password, mobile, first_name, last_name, profile_pic, state_id, district_id, city_id } = req.body;
     const checkmail = yield Users_1.default.findOne({
         email: email
     });
     if (checkmail) {
-        console.log("User email exists");
+        // console.log("User email exists");
         throw new AppError_1.default('E-mail alredy exists.', 400);
     }
+    const defaultRole = yield Role_1.default.findOne({ name: 'USER' });
+    if (!defaultRole)
+        throw new AppError_1.default('Default role not found.', 500);
     const result = yield Users_1.default.create({
-        first_name,
-        last_name,
         email,
+        role: role || (defaultRole === null || defaultRole === void 0 ? void 0 : defaultRole._id) || null,
+        password
     });
     return yield result.save();
 });

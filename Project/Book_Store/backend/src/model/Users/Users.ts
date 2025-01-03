@@ -1,6 +1,5 @@
-import mongoose from 'mongoose';
-import Role from '../Role';
-
+import mongoose, {Document, Model} from 'mongoose';
+import { IUser } from '../../interfaces/Users/UserInterface';
 
 const UserSchema = new mongoose.Schema({
     mobile :{
@@ -29,11 +28,8 @@ const UserSchema = new mongoose.Schema({
     },
     role: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Role', 
-        default: async function () {
-            const defaultRole = await Role.findOne({ name: 'USER' });
-            return defaultRole ? defaultRole._id : null;
-        }
+        ref: 'Roles', 
+        default: '67614fac9b2091aa5e28d663'
     },
     password : {
         type: String,
@@ -50,12 +46,16 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    is_delete : {
+        type: Boolean,
+        default: false,
+    },
     creation_date : {
         type: Date, 
         default: Date.now,
     }
 });
 
-const User = mongoose.model('Users',UserSchema);
+const User: Model<IUser> = mongoose.model<IUser>('Users', UserSchema);
 
 export default User;

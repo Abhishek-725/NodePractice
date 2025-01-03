@@ -46,3 +46,23 @@ const obj = { a: 1, b: { c: 2 } };
 const copy = Object.assign({}, obj); 
 copy.b.c = 42; 
 console.log(obj.b.c); 
+
+
+let x = 10; let y = x++; console.log(x, y);
+
+const link = '/public/reports/REDEEMPTION-REPORT-overFinal_235931733902530.xlsx';
+const updatedLink = link.replace('/public', '');
+console.log(updatedLink);
+
+
+
+console.log([..."Hello"]); 
+
+const obj1 = {
+    name : 'Abhi',
+    greet :  () => {
+        return `hi, ${this.name}`
+    }
+}
+console.log(obj1.greet());
+

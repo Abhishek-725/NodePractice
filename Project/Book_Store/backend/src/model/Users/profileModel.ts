@@ -1,7 +1,12 @@
-const mongoose = require('mongoose');
+import mongoose, { Model } from 'mongoose';
+import { IUserProfile } from '../../interfaces/Users/ProfileInterface';
 
-
-const UserSchema = new mongoose.Schema({
+const ProfileSchema = new mongoose.Schema({
+    user_id : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'Users',
+        required : true
+    },
     first_name :{
         type : String,
         required : true,
@@ -16,40 +21,44 @@ const UserSchema = new mongoose.Schema({
             message : 'Last name must contain 2 to 30 characters.',
         }
     },
-    email :{
-        type : String,
-        required : true,
-        unique : true,
-        validate :{
-            validator (value : string) {
-                const emailRegex = /^\S+@\S+\.\S+$/;
-                return emailRegex.test(value);
-            },
-            message: (props:{ value: string }) => `${props.value} is invalid email.`
-        }
+    profile_pic : {
+        type : String
     },
-    role: {
-        type: String,
-        enum: ['ADMIN', 'USER','REVIEWER'],
-        default: 'USER',
-    },
-    mobile :{
+    city_id :{
         type : Number,
         required : true,
-        unique : true,
         validate :{
             validator (value : string) {
-                const mobileRegex = /^[0-9]{10}$/;
+                const mobileRegex = /^[0-9]{6}$/;
                 return mobileRegex.test(value.toString());
             },
-            message: (props:{ value: string }) => `${props.value} is invalid mobile number.`
+            message: (props:{ value: string }) => `${props.value} is invalid city_id.`
         }
     },
-    password : {
-        type : String
-    }
+    district_id :{
+        type : Number,
+        required : true,
+        validate :{
+            validator (value : string) {
+                const mobileRegex = /^[0-9]{6}$/;
+                return mobileRegex.test(value.toString());
+            },
+            message: (props:{ value: string }) => `${props.value} is invalid district_id`
+        }
+    },
+    state_id :{
+        type : Number,
+        required : true,
+        validate :{
+            validator (value : string) {
+                const mobileRegex = /^[0-9]{6}$/;
+                return mobileRegex.test(value.toString());
+            },
+            message: (props:{ value: string }) => `${props.value} is invalid state_id.`
+        }
+    },
 });
 
-const User = mongoose.model('Users',UserSchema);
+const UsersProfile: Model<IUserProfile> = mongoose.model<IUserProfile>('UserProfile', ProfileSchema);
 
-export default User;
+export default UsersProfile;

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Users_1 = __importDefault(require("../../model/Users"));
+const Users_1 = __importDefault(require("../../model/Users/Users"));
 const AppError_1 = __importDefault(require("../../utils/AppError"));
 const errorWrapper_1 = __importDefault(require("../../utils/errorWrapper"));
 const loginUser = (0, errorWrapper_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
