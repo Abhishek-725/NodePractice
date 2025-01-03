@@ -34,16 +34,21 @@ const craeteUser = (req) => __awaiter(void 0, void 0, void 0, function* () {
         role: role || (defaultRole === null || defaultRole === void 0 ? void 0 : defaultRole._id) || null,
         password
     });
-    const profileData = yield profileModel_1.default.create({
-        user_id: result._id,
-        first_name,
-        last_name,
-        state_id,
-        district_id,
-        city_id
-    });
-    const [user, profile] = yield Promise.all([result.save(), profileData.save()]);
-    return { user, profile };
+    try {
+        const profileData = yield profileModel_1.default.create({
+            user_id: result._id,
+            first_name,
+            last_name,
+            state_id,
+            district_id,
+            city_id
+        });
+        return { user: result, profile: profileData };
+    }
+    catch (error) {
+        yield Users_1.default.deleteOne({ _id: result._id });
+        throw new AppError_1.default((error === null || error === void 0 ? void 0 : error.message) || 'Fail to insert data.', 400);
+    }
 });
 const getUsers = (email) => __awaiter(void 0, void 0, void 0, function* () {
     const userFilter = {};

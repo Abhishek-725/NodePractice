@@ -32,7 +32,7 @@ const ProfileSchema = new mongoose_1.default.Schema({
         required: true,
         validate: {
             validator(value) {
-                const mobileRegex = /^[0-9]{6}$/;
+                const mobileRegex = /^[0-9]+$/;
                 return mobileRegex.test(value.toString());
             },
             message: (props) => `${props.value} is invalid city_id.`
@@ -43,7 +43,7 @@ const ProfileSchema = new mongoose_1.default.Schema({
         required: true,
         validate: {
             validator(value) {
-                const mobileRegex = /^[0-9]{6}$/;
+                const mobileRegex = /^[0-9]+$/;
                 return mobileRegex.test(value.toString());
             },
             message: (props) => `${props.value} is invalid district_id`
@@ -54,7 +54,7 @@ const ProfileSchema = new mongoose_1.default.Schema({
         required: true,
         validate: {
             validator(value) {
-                const mobileRegex = /^[0-9]{6}$/;
+                const mobileRegex = /^[0-9]+$/;
                 return mobileRegex.test(value.toString());
             },
             message: (props) => `${props.value} is invalid state_id.`

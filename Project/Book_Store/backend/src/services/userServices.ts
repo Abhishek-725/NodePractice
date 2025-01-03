@@ -1,4 +1,5 @@
 import Role from '../model/Role';
+import mongoose from 'mongoose';
 import UsersProfile from '../model/Users/profileModel';
 import User from '../model/Users/Users';
 import AppError from '../utils/AppError';
@@ -25,16 +26,20 @@ const craeteUser = async (req :Request ) => {
         role : role || defaultRole?._id || null,
         password
     });
-    const profileData = await UsersProfile.create({
-        user_id : result._id,
-        first_name,
-        last_name,
-        state_id,
-        district_id,
-        city_id
-    });
-    const [user, profile] = await Promise.all([result.save(), profileData.save()])
-    return {user, profile};
+    try {
+        const profileData = await UsersProfile.create({
+            user_id : result._id,
+            first_name,
+            last_name,
+            state_id,
+            district_id,
+            city_id
+        });
+        return { user: result, profile: profileData };
+    } catch (error : any) {
+        await User.deleteOne({_id : result._id})
+        throw new AppError(error?.message || 'Fail to insert data.',400);
+    }
 }
 
 const getUsers = async (email : string) => {
